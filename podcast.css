@@ -108,6 +108,20 @@ span {
     margin-top: 125px;
     width: 700px;
     height: 200px;
+    position: relative;
+}
+.prime-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.prime {
+    width: 200px;
+    margin: 1.2rem 1rem 0 0;
+    text-align: center;
+    transform: rotateZ(5deg);
 }
 .text-bubble.date {
     margin-left: 125px;
