@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://fonts.cdnfonts.com/css/baron-neue" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="podcast.css">
+    <script src="dom-to-image.min.js"></script>
+    <script>
+        let edition = "S2E7";
+        let title = "al abordaje mina-san";
+        let titleSize = "1.8rem";
+        let subtitle = "tatakae arturo-kun";
+        let subtitleSize = "3rem";
+        let day = "15";
+        let month = "may";
+        const fill = () => {
+            document.getElementById("edition").innerHTML = edition;
+            document.getElementById("title").innerHTML = title;
+            document.getElementById("title").style.fontSize = titleSize;
+            document.getElementById("subtitle").innerHTML = subtitle;
+            document.getElementById("subtitle").style.fontSize = subtitleSize;
+            document.getElementById("day").innerHTML = day;
+            document.getElementById("month").innerHTML = month;
+        };
+        const convert = () => {
+            const toConvert = document.getElementById("to-convert");
+            domtoimage.toPng(toConvert).then(
+                function (dataUrl) {
+                    var img = new Image();
+                    img.src = dataUrl;
+
+                    var link = document.createElement("a");
+                    link.download = "afiche_podcast_"+edition;
+                    link.href = dataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    delete link;
+
+                    document.getElementById("error").style.display = "none";
+                }
+            ).catch(
+                function (error) {
+                    document.getElementById("error").style.display = "block";
+                    document.getElementById("error").innerHTML = error;
+                }
+            );
+        };
+        const updateTitle = () => {
+            title = String(document.getElementsByName("title")[0].value).toLowerCase();
+            fill();
+        }
+        const updateTitleSize = () => {
+            titleSize = String(document.getElementsByName("title-size")[0].value/10) + "rem";
+            fill();
+        }
+        const updateSubtitle = () => {
+            subtitle = String(document.getElementsByName("subtitle")[0].value).toLowerCase();
+            fill();
+        }
+        const updateSubtitleSize = () => {
+            subtitleSize = String(document.getElementsByName("subtitle-size")[0].value/10) + "rem";
+            fill();
+        }
+        const updateEdition = () => {
+            edition = String(document.getElementsByName("edition")[0].value).toLowerCase();
+            fill();
+        }
+        const updateDay = () => {
+            day = String(document.getElementsByName("day")[0].value).toLowerCase();
+            fill();
+        }
+        const updateMonth = () => {
+            month = String(document.getElementsByName("month")[0].value).toLowerCase();
+            fill();
+        }
+    </script>
+    <title>Afiche Podcast Maker</title>
+</head>
+<body onload="fill()">
+    <div class="main">
+        <div id="to-convert" class="bg">
+            <div class="layer">
+                <div class="squares-container">
+                    <div class="squares-grid">
+                        <div class="square-container"><div class="square m"></div></div>
+                        <div class="square-container"><div class="square l"></div></div>
+                        <div class="square-container"><div class="square m"></div></div>
+        
+                        <div class="square-container"><div class="square s"></div></div>
+                        <div class="square-container"><div class="square m"></div></div>
+                        <div class="square-container"><div class="square l"></div></div>
+        
+                        <div class="square-container"><div class="square l"></div></div>
+                        <div class="square-container"><div class="square m"></div></div>
+                        <div class="square-container"><div class="square s"></div></div>
+        
+                        <div class="square-container"><div class="square s"></div></div>
+                        <div class="square-container"><div class="square l"></div></div>
+                        <div class="square-container"><div class="square m"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="layer">
+                <div class="image-container">
+                    <img src="chibitantan1.png" width=900 alt="chibitan">
+                </div>
+            </div>
+            <div class="layer">
+                <div class="footer-container">
+                    <div class="footer">
+                        <div class="footer-links-container">
+                            <div class="footer-link">
+                                <img src="TwitchGlitchWhite.svg" width=50 height=50 alt="twitch">
+                                <span class="footer-link-text">/seishin_tan</span>
+                            </div>
+                            <div class="footer-link">
+                                <img src="Spotify_Logo_RGB_White.png" width=50 height=50 alt="twitch">
+                                <span class="footer-link-text">> podukasuto</span>
+                            </div>
+                        </div>
+                        <div class="logo-container">
+                            <img src="logo.svg" height=60 alt="twitch">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layer">
+                <div class="edition-container">
+                    <span class="edition" id="edition"></span>
+                </div>
+            </div>
+            <div class="layer">
+                <div class="text-bubble title">
+                    <div class="text-bubble-content">
+                        <span class="text">podukasuto</span>
+                        <div class="title-container">
+                            <span class="title" id="title"></span>
+                            <span class="subtitle" id="subtitle"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layer">
+                <div class="text-bubble date">
+                    <div class="text-bubble-content">
+                        <div class="fulldate-container">
+                            <span class="date">sáb</span>
+                            <div class="date-container">
+                                <span id="day" class="day"></span>
+                                <span id="month" class="date"></span>
+                            </div>
+                            <span class="date borderleft">21:30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="inputs-container">
+            <div class="input-row">
+                <span>Título</span><input name="title" type="text" onchange="updateTitle()">
+                <span>Tamaño</span><input class="s" name="title-size" type="number" onchange="updateTitleSize()">
+            </div>
+            <div class="input-row">
+                <span>Subtítulo</span><input name="subtitle" type="text" onchange="updateSubtitle()">
+                <span>Tamaño</span><input class="s" name="subtitle-size" type="number" onchange="updateSubtitleSize()">
+            </div>
+            <div class="input-row">
+                <span>Edición</span><input name="edition" type="text" onchange="updateEdition()">
+            </div>
+            <div class="input-row">
+                <span>Día</span><input name="day" type="number" onchange="updateDay()">
+            </div>
+            <div class="input-row">
+                <span>Mes</span><input name="month" type="text" onchange="updateMonth()">
+            </div>
+            <div class="download-container">
+                <button name="download" onclick="convert()">Descargar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
