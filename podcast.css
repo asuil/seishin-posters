@@ -1,6 +1,7 @@
 @font-face {
     font-family: "Baron Neue Black";
     src: url("https://asuil.github.io/seishin-posters/bnb.woff2") format("woff2"),
+        url("https://asuil.github.io/seishin-posters/bnb.woff") format("woff"),
 }
 
 body {
