@@ -2,4 +2,4 @@
 
 webapp to quickly edit posters for seishin activities
 
-accessible at https://asuil.github.io/
+accessible [here](https://asuil.github.io/seishin_posters)
