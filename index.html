@@ -7,22 +7,45 @@
     <link rel="stylesheet" href="podcast.css">
     <script src="dom-to-image.min.js"></script>
     <script>
-        let edition = "S2E7";
-        let title = "al abordaje mina-san";
-        let titleSize = "1.8rem";
-        let subtitle = "tatakae arturo-kun";
-        let subtitleSize = "3rem";
-        let day = "15";
-        let month = "may";
-        const fill = () => {
-            document.getElementById("edition").innerHTML = edition;
-            document.getElementById("title").innerHTML = title;
-            document.getElementById("title").style.fontSize = titleSize;
-            document.getElementById("subtitle").innerHTML = subtitle;
-            document.getElementById("subtitle").style.fontSize = subtitleSize;
-            document.getElementById("day").innerHTML = day;
-            document.getElementById("month").innerHTML = month;
+        
+        let edition;
+        let title;
+        let titleSize;
+        let subtitle;
+        let subtitleSize;
+        let date;
+        let time;
+
+        const setValues = () => {
+            edition = "S2E7";
+            title = "al abordaje mina-san";
+            titleSize = 18;
+            subtitle = "tatakae arturo-kun";
+            subtitleSize = 30;
+            date = new Date();
+            time = "21:30";
         };
+
+        const setInputs = () => {
+            document.getElementsByName("title-size")[0].value = titleSize;
+            document.getElementsByName("subtitle-size")[0].value = subtitleSize;
+            document.getElementsByName("edition")[0].value = edition;
+            document.getElementsByName("date")[0].value = date.toLocaleDateString("fr-CA", {year: "numeric", month: "2-digit", day: "2-digit"});
+            document.getElementsByName("time")[0].value = time;
+        };
+
+        const fill = () => {
+            document.getElementById("edition").innerHTML = edition.toLowerCase();
+            document.getElementById("title").innerHTML = title.toLowerCase();
+            document.getElementById("title").style.fontSize = (titleSize/10)+"rem";
+            document.getElementById("subtitle").innerHTML = subtitle.toLowerCase();
+            document.getElementById("subtitle").style.fontSize = (subtitleSize/10)+"rem";
+            document.getElementById("day-name").innerHTML = date.toLocaleDateString("es-CL", {weekday: "short"}).substr(0, 3);
+            document.getElementById("day-number").innerHTML = date.toLocaleDateString("es-CL", {day: "2-digit"});
+            document.getElementById("month").innerHTML = date.toLocaleDateString("es-CL", {month: "short"}).substr(0, 3);
+            document.getElementById("time").innerHTML = time;
+        };
+
         const convert = () => {
             const toConvert = document.getElementById("to-convert");
             domtoimage.toPng(toConvert).then(
@@ -47,38 +70,39 @@
                 }
             );
         };
+
         const updateTitle = () => {
-            title = String(document.getElementsByName("title")[0].value).toLowerCase();
+            title = String(document.getElementsByName("title")[0].value);
             fill();
-        }
+        };
         const updateTitleSize = () => {
-            titleSize = String(document.getElementsByName("title-size")[0].value/10) + "rem";
+            titleSize = parseInt(document.getElementsByName("title-size")[0].value);
             fill();
-        }
+        };
         const updateSubtitle = () => {
-            subtitle = String(document.getElementsByName("subtitle")[0].value).toLowerCase();
+            subtitle = String(document.getElementsByName("subtitle")[0].value);
             fill();
-        }
+        };
         const updateSubtitleSize = () => {
-            subtitleSize = String(document.getElementsByName("subtitle-size")[0].value/10) + "rem";
+            subtitleSize = parseInt(document.getElementsByName("subtitle-size")[0].value);
             fill();
-        }
+        };
         const updateEdition = () => {
-            edition = String(document.getElementsByName("edition")[0].value).toLowerCase();
+            edition = String(document.getElementsByName("edition")[0].value);
             fill();
-        }
-        const updateDay = () => {
-            day = String(document.getElementsByName("day")[0].value).toLowerCase();
+        };
+        const updateDate = () => {
+            date = new Date(document.getElementsByName("date")[0].value + " 00:00:00");
             fill();
-        }
-        const updateMonth = () => {
-            month = String(document.getElementsByName("month")[0].value).toLowerCase();
+        };
+        const updateTime = () => {
+            time = document.getElementsByName("time")[0].value;
             fill();
-        }
+        };
     </script>
     <title>Afiche Podcast Maker</title>
 </head>
-<body onload="fill()">
+<body onload="setValues();setInputs();fill();">
     <div class="main">
         <div id="to-convert" class="bg">
             <div class="layer">
@@ -151,12 +175,12 @@
                 <div class="text-bubble date">
                     <div class="text-bubble-content">
                         <div class="fulldate-container">
-                            <span class="date">sáb</span>
+                            <span id="day-name" class="date"></span>
                             <div class="date-container">
-                                <span id="day" class="day"></span>
+                                <span id="day-number" class="day"></span>
                                 <span id="month" class="date"></span>
                             </div>
-                            <span class="date borderleft">21:30</span>
+                            <span id="time" class="date borderleft"></span>
                         </div>
                     </div>
                 </div>
@@ -175,10 +199,10 @@
                 <span>Edición</span><input name="edition" type="text" onchange="updateEdition()">
             </div>
             <div class="input-row">
-                <span>Día</span><input name="day" type="number" onchange="updateDay()">
+                <span>Fecha</span><input name="date" type="date" onchange="updateDate()">
             </div>
             <div class="input-row">
-                <span>Mes</span><input name="month" type="text" onchange="updateMonth()">
+                <span>Hora</span><input name="time" type="time" onchange="updateTime()">
             </div>
             <div class="download-container">
                 <button name="download" onclick="convert()">Descargar</button>
