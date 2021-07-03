@@ -2,4 +2,10 @@
 
 webapp to quickly edit posters for seishin activities
 
-accessible [here](https://asuil.github.io/seishin-posters)
+## access
+
+[here](https://asuil.github.io/seishin-posters)
+
+## run locally
+
+``docker-compose up -d --build``
