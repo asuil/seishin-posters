@@ -1,0 +1,19 @@
+{
+  "name": "seishin-posters",
+  "version": "1.0.0",
+  "description": "a project to create posters for the anime no seishin doukoukai community",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asuil/seishin-posters.git"
+  },
+  "author": "asuil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asuil/seishin-posters/issues"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4"
+  }
+}
