@@ -10,7 +10,39 @@
     <title>Afiche Podcast Maker</title>
 </head>
 <body onload="setValues();setInputs();fill();">
-    <div class="main">
+    <div>
+        <div class="main">
+            <div class="preview-container">
+                <div id="backdrop" class="backdrop"></div>
+                <img id="preview" src="" width=400 height=400 alt="preview resultado">
+            </div>
+            <div class="inputs-container">
+                <div class="input-row">
+                    <span>Título</span><input class="big-input" name="title" type="text" onchange="updateTitle()">
+                </div>
+                <div class="input-row">
+                    <span>Subtítulo</span><input class="big-input" name="subtitle" type="text" onchange="updateSubtitle()">
+                </div>
+                <div class="input-row">
+                    <span>Edición</span><input class="small-input" name="edition" type="text" onchange="updateEdition()">
+                </div>
+                <div class="input-row">
+                    <span>Fecha</span><input name="date" type="date" onchange="updateDate()">
+                </div>
+                <div class="input-row">
+                    <span>Hora</span><input name="time" type="time" onchange="updateTime()">
+                </div>
+                <div class="input-row">
+                    <span>Tamaño Título</span><input class="small-input" name="title-size" type="number" onchange="updateTitleSize()">
+                </div>
+                <div class="input-row">
+                    <span>Tamaño Subtítulo</span><input class="small-input" name="subtitle-size" type="number" onchange="updateSubtitleSize()">
+                </div>
+                <div class="download-container">
+                    <button name="download" onclick="convert(true)">Descargar</button>
+                </div>
+            </div>
+        </div>
         <div id="to-convert" class="bg">
             <div class="layer">
                 <div class="squares-container">
@@ -91,28 +123,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="inputs-container">
-            <div class="input-row">
-                <span>Título</span><input name="title" type="text" onchange="updateTitle()">
-                <span>Tamaño</span><input class="s" name="title-size" type="number" onchange="updateTitleSize()">
-            </div>
-            <div class="input-row">
-                <span>Subtítulo</span><input name="subtitle" type="text" onchange="updateSubtitle()">
-                <span>Tamaño</span><input class="s" name="subtitle-size" type="number" onchange="updateSubtitleSize()">
-            </div>
-            <div class="input-row">
-                <span>Edición</span><input name="edition" type="text" onchange="updateEdition()">
-            </div>
-            <div class="input-row">
-                <span>Fecha</span><input name="date" type="date" onchange="updateDate()">
-            </div>
-            <div class="input-row">
-                <span>Hora</span><input name="time" type="time" onchange="updateTime()">
-            </div>
-            <div class="download-container">
-                <button name="download" onclick="convert()">Descargar</button>
             </div>
         </div>
     </div>

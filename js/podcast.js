@@ -27,6 +27,39 @@ const setInputs = () => {
   document.getElementsByName('time')[0].value = time;
 };
 
+const convert = (shouldDownload) => {
+  const toConvert = document.getElementById('to-convert');
+  toConvert.style.display = 'block';
+  const backdrop = document.getElementById('backdrop');
+  backdrop.style.display = 'block';
+  // eslint-disable-next-line no-undef
+  domtoimage.toPng(toConvert).then(
+    (dataUrl) => {
+      toConvert.style.display = 'none';
+      backdrop.style.display = 'none';
+      const img = new Image();
+      if (dataUrl.length > 10) {
+        img.src = dataUrl;
+        document.getElementById('preview').src = dataUrl;
+
+        if (shouldDownload) {
+          const link = document.createElement('a');
+          link.download = `afiche_podcast_${edition}`;
+          link.href = dataUrl;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      }
+    },
+  ).catch(
+    (error) => {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    },
+  );
+};
+
 const fill = () => {
   document.getElementById('edition').innerHTML = edition.toLowerCase();
   document.getElementById('title').innerHTML = title.toLowerCase();
@@ -37,31 +70,7 @@ const fill = () => {
   document.getElementById('day-number').innerHTML = date.toLocaleDateString('es-CL', { day: '2-digit' });
   document.getElementById('month').innerHTML = date.toLocaleDateString('es-CL', { month: 'short' }).substr(0, 3);
   document.getElementById('time').innerHTML = time;
-};
-
-const convert = () => {
-  const toConvert = document.getElementById('to-convert');
-  // eslint-disable-next-line no-undef
-  domtoimage.toPng(toConvert).then(
-    (dataUrl) => {
-      const img = new Image();
-      img.src = dataUrl;
-
-      const link = document.createElement('a');
-      link.download = `afiche_podcast_${edition}`;
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      document.getElementById('error').style.display = 'none';
-    },
-  ).catch(
-    (error) => {
-      document.getElementById('error').style.display = 'block';
-      document.getElementById('error').innerHTML = error;
-    },
-  );
+  convert(false);
 };
 
 const updateTitle = () => {
